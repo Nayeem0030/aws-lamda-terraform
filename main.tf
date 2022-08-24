@@ -3,7 +3,7 @@ region = "us-east-1"
 }
 ##IAM ROLE###
 resource "aws_iam_role" "lamda_role" {
-  name = "terraform-aws_lamda_role"
+  name = "terraform_aws_lamda_role"
   
   assume_role_policy = <<EOF
   {
@@ -64,7 +64,6 @@ resource "aws_lambda_function" "terraform_lambda_func"
   role          = "aws_iam_role.lambda_role.arn"
   handler       = "hello-python.lamda_handler"
   runtime = "python3.8"
-  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+  depends_on = "[aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]"
 }
-
 
