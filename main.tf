@@ -71,3 +71,4 @@ resource "aws_lambda_function" "terraform_lambda_func"
 }
   
   
+}
