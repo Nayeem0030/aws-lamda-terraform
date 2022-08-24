@@ -3,7 +3,7 @@ region = "us-east-1"
 }
 ##IAM ROLE###
 resource "aws_iam_role" "lamda_role" {
-  name = "terraform_aws_lamda_role"
+  name = "terraform-aws_lamda_role"
   
   assume_role_policy = <<EOF
   {
@@ -20,7 +20,6 @@ resource "aws_iam_role" "lamda_role" {
       }
     }
 }
-
 ## Iam policy##
   resource "aws_iam_policy" "iam_policy_for_lamda" {
   name        = "aws_iam_policy_for_terraform_aws_lamda_role"
@@ -43,10 +42,9 @@ resource "aws_iam_role" "lamda_role" {
     ]
   }
 }
-
-
 ##Policy attachment on role ###
-resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
+resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role"
+ {
   role       = aws_iam_role.lamda_role.name
   policy_arn = aws_iam_policy.iam_policy_for_lamda.arn
 }
@@ -59,16 +57,13 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
   
   ##create lamda function##
   
-resource "aws_lambda_function" "terraform_lambda_function" {
+resource "aws_lambda_function" "terraform_lambda_func" 
+{
   filename      = "path.module}/python/hello-python.zip"
   function_name = "Jhooq_lamda_Function"
   role          = "aws_iam_role.lambda_role.arn"
   handler       = "hello-python.lamda_handler"
   runtime = "python3.8"
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
-
 }
-  
-  
 
-}
