@@ -57,13 +57,13 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role"
   
   ##create lamda function##
   
-resource "aws_lambda_function" "terraform_lambda_func" 
+resource "aws_lambda_function" "terraform_lambda_function" 
 {
-  filename      = "{path.module}/python/hello-python.zip"
+  filename      = "${path.module}/python/hello-python.zip"
   function_name = "Jhooq_lamda_Function"
-  role          = "aws_iam_role.lambda_role.arn"
+  role          =  aws_iam_role.lambda_role.arn
   handler       = "hello-python.lamda_handler"
-  runtime = "python3.8"
-  depends_on = "[aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]"
+  runtime       = "python3.8"
+  depends_on    = "[aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]"
 }
 
